@@ -39,7 +39,9 @@ const QuioscoProvider = ({children}) =>{
         setModal(!modal)
     }
     /* Agregar pedido al state */
-    
+    const handleAgregarPedido = ({categoriaId, imagen, ...producto}) =>{
+        setPedido([...pedido, producto])
+    }
     return(
         <QuioscoContext.Provider
             value={{
@@ -49,7 +51,8 @@ const QuioscoProvider = ({children}) =>{
                 producto,
                 handleSetProductos,
                 modal,
-                handleChangeModal
+                handleChangeModal,
+                handleAgregarPedido
             }}
         >
             {children}
