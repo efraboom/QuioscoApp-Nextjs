@@ -52,6 +52,7 @@ const QuioscoProvider = ({children}) =>{
         }
         setModal(false)
     }
+
     return(
         <QuioscoContext.Provider
             value={{
@@ -63,7 +64,7 @@ const QuioscoProvider = ({children}) =>{
                 modal,
                 handleChangeModal,
                 handleAgregarPedido,
-                pedido
+                pedido,
             }}
         >
             {children}

@@ -1,7 +1,12 @@
-
+import Layout from "../layout/Layout"
 
 export default function Total() {
   return (
-    <div>Total</div>
+    <Layout
+      pagina={'Total y Confirmar Pedido'}
+    >
+      <h1 className=' text-4xl font-black'>Total</h1>
+      <p className=' text-2xl my-10'>Revisa tu pedido</p>
+    </Layout>
   )
 }
