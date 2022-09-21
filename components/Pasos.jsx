@@ -38,7 +38,7 @@ const Pasos = () => {
                 ))}
             </div>
             <div className=" bg-gray-100 mb-10">
-                <div className=" rounded-full bg-amber-500 text-sm leading-none h-2 text-center text-white" 
+                <div className="rounded-full bg-amber-500 text-sm leading-none h-2 text-center text-white" 
                 
                 style={{width: `${calcularProgreso()}%`}}
                 >

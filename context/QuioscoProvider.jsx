@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router"
 
 const QuioscoContext = createContext()
 
@@ -10,6 +11,7 @@ const QuioscoProvider = ({children}) =>{
     const [producto, setProducto] = useState({});
     const [modal, setModal] = useState(false);
     const [pedido, setPedido] = useState([]);
+    const router = useRouter()
 
     const obtenerCategorias = async () =>{
         const { data } = await axios('/api/categorias')
@@ -28,6 +30,7 @@ const QuioscoProvider = ({children}) =>{
     const handleClickCategoria = id =>{
         const categoria = categorias.filter(cat => cat.id === id)
         setCategoriaActual(categoria[0])
+        router.push('/')
     }
 
     /* Obteniendo producto seleccionado */
@@ -40,7 +43,7 @@ const QuioscoProvider = ({children}) =>{
         setModal(!modal)
     }
     /* Agregar pedido al state */
-    const handleAgregarPedido = ({categoriaId, imagen, ...producto}) =>{
+    const handleAgregarPedido = ({categoriaId, ...producto}) =>{
         if(pedido.some(productoState => productoState.id === producto.id)){
             /* Actualizando cantidad */
             const pedidoActualizado = pedido.map(productoState => productoState.id === producto.id? producto: productoState)
@@ -51,6 +54,17 @@ const QuioscoProvider = ({children}) =>{
             toast.success('Agregado al pedido')
         }
         setModal(false)
+    }
+
+    const handleEditarCantidades = id =>{
+        const productoActualizar = pedido.filter( producto => producto.id === id)
+        setProducto(productoActualizar[0])
+        setModal(!modal)
+    }
+
+    const handleEliminarProducto = id =>{
+        const productoActualizado = pedido.filter( producto => producto.id !== id)
+        setPedido(productoActualizado);
     }
 
     return(
@@ -65,6 +79,8 @@ const QuioscoProvider = ({children}) =>{
                 handleChangeModal,
                 handleAgregarPedido,
                 pedido,
+                handleEditarCantidades,
+                handleEliminarProducto,
             }}
         >
             {children}
